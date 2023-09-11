@@ -1,0 +1,36 @@
+<html>
+	<body>
+		<table>
+			<tr>
+				<td>Click to send "Hello World" to app</td>
+				<td>
+					<button onclick="sendMessageToSAC()">Send</button>
+				</td>
+			</tr>
+			<tr>
+				<td>Response = </td>
+				<td id="response"></td>
+			</tr>
+		</table>
+
+		<iframe id="theIFrame" 
+				src="https://coej-analytics.ap10.sapanalytics.cloud/sap/fpa/ui/tenants/7dea7/bo/story/F4112B84057A23C2A39CDC0D6DF3C40E" 
+				height="500" 
+				width="1000">
+		</iframe>
+
+		<script>
+			function sendMessageToSAC() {
+				var theIFrame = document.getElementById('theIFrame').contentWindow;
+				theIFrame.postMessage("Hello World","https://coej-analytics.ap10.sapanalytics.cloud");
+			}
+		
+			window.addEventListener("message", receiveMessageFromSAC, false);
+
+			function receiveMessageFromSAC(event) {
+			  var responseElement = document.getElementById('response');
+			  responseElement.textContent = event.data;
+			}
+		</script>
+	</body>
+</html>
